@@ -1,4 +1,4 @@
 while true
   do
-    npm test
+    npm start
 done

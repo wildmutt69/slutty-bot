@@ -1,4 +1,6 @@
 import { Client, Collection, MessageEmbed, MessageButton } from 'discord.js';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import { readdirSync } from 'fs';
 export class IsekoClient extends Client {
     baseDir;
@@ -14,8 +16,8 @@ export class IsekoClient extends Client {
         this.baseDir = isekoOptions.baseDir;
         this.runAt = isekoOptions.runAt;
     }
-    handleEvents(eventsFolder = `${process.cwd()}/${this.baseDir}/events`
-        ?? `${process.cwd()}/Iseko/events`) {
+    handleEvents(eventsFolder = `${dirname(fileURLToPath(import.meta.url))}/../../${this.baseDir}/events`
+        ?? `${dirname(import.meta.url)}/../events`) {
         readdirSync(eventsFolder)
             .forEach(async (subFolder) => {
             readdirSync(`${eventsFolder}/${subFolder}`)
@@ -33,8 +35,8 @@ export class IsekoClient extends Client {
         return this;
     }
     handleComponents(options) {
-        const handleEmbeds = (embedsFolder = `${process.cwd()}/${this.baseDir}/embeds`
-            ?? `${process.cwd()}/Iseko/embeds`) => {
+        const handleEmbeds = (embedsFolder = `${dirname(fileURLToPath(import.meta.url))}/../../${this.baseDir}/embeds`
+            ?? `${dirname(import.meta.url)}/../embeds`) => {
             readdirSync(embedsFolder)
                 .forEach(async (subFolder) => {
                 readdirSync(`${embedsFolder}/${subFolder}`)
@@ -61,8 +63,8 @@ export class IsekoClient extends Client {
                 });
             });
         };
-        const handleButtons = (buttonsFolder = `${process.cwd()}/${this.baseDir}/buttons`
-            ?? `${process.cwd()}/Iseko/buttons`) => {
+        const handleButtons = (buttonsFolder = `${dirname(fileURLToPath(import.meta.url))}/../../${this.baseDir}/buttons`
+            ?? `${dirname(import.meta.url)}/../buttons`) => {
             readdirSync(buttonsFolder)
                 .forEach(async (subFolder) => {
                 readdirSync(`${buttonsFolder}/${subFolder}`)
@@ -82,8 +84,8 @@ export class IsekoClient extends Client {
         handleButtons(options?.buttons);
         return this;
     }
-    handleCommands(commandsFolder = `${process.cwd()}/${this.baseDir}/commands`
-        ?? `${process.cwd()}/Iseko/commands`) {
+    handleCommands(commandsFolder = `${dirname(fileURLToPath(import.meta.url))}/../../${this.baseDir}/commands`
+        ?? `${dirname(import.meta.url)}/../commands`) {
         readdirSync(commandsFolder)
             .forEach(async (subFolder) => {
             readdirSync(`${commandsFolder}/${subFolder}`)

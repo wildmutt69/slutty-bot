@@ -10,11 +10,11 @@ export default async (client: IsekoClient) => {
       `in ${guildCount.size} servers.`,
       `${userCount} users.`
     ],
-		types = [1, 2],
 		hearts = [
 			'❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤍', '💖'
 		],
-		statuses = ['idle', 'online', 'dnd'] as PresenceStatusData[]
+		types = [1, 2],
+		statuses = ['idle', 'online', 'dnd']
 
   let n = 0, t = 0, h = 0, s = 0
   
@@ -29,14 +29,14 @@ export default async (client: IsekoClient) => {
 
   const presence = () => {
     if (n == names.length) n = 0
-		if (t == types.length) t = 0
 		if (h == hearts.length) h = 0
+		if (t == types.length) t = 0
 		if (s == statuses.length) s = 0
     const
-		  name = names[n],
-			type = types[t],
-			heart = hearts[h],
-			status = statuses[s]
+		  name = names[n] as string,
+			heart = hearts[h] as string,
+			type = types[t] as number,
+			status = statuses[s] as PresenceStatusData
 
     client.user.setPresence({
       activities: [

@@ -1,7 +1,6 @@
-import {
-	Client, Collection, MessageEmbed, MessageButton,
-	ClientOptions, Message
-} from 'discord.js'
+import { Client, Collection, MessageEmbed, MessageButton, ClientOptions, Message } from 'discord.js'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 import { readdirSync } from 'fs'
 
 export class IsekoClient extends Client<true> {
@@ -38,8 +37,8 @@ export class IsekoClient extends Client<true> {
 	}
 
   handleEvents(
-		eventsFolder = `${process.cwd()}/${this.baseDir}/events`
-		?? `${process.cwd()}/Iseko/events`
+		eventsFolder = `${dirname(fileURLToPath(import.meta.url))}/../../${this.baseDir}/events`
+        ?? `${dirname(import.meta.url)}/../events`
 	) {
 		readdirSync(eventsFolder)
 		.forEach(async (subFolder) => {
@@ -64,8 +63,8 @@ export class IsekoClient extends Client<true> {
 	}) {
 
 	  const handleEmbeds = (
-			embedsFolder = `${process.cwd()}/${this.baseDir}/embeds`
-			?? `${process.cwd()}/Iseko/embeds`
+			embedsFolder = `${dirname(fileURLToPath(import.meta.url))}/../../${this.baseDir}/embeds`
+        ?? `${dirname(import.meta.url)}/../embeds`
 		) => {
   		readdirSync(embedsFolder)
 		  .forEach(async (subFolder) => {
@@ -92,8 +91,8 @@ export class IsekoClient extends Client<true> {
 		}
 
   	const handleButtons = (
-			buttonsFolder = `${process.cwd()}/${this.baseDir}/buttons`
-			?? `${process.cwd()}/Iseko/buttons`
+			buttonsFolder = `${dirname(fileURLToPath(import.meta.url))}/../../${this.baseDir}/buttons`
+        ?? `${dirname(import.meta.url)}/../buttons`
 		) => {
 	  	readdirSync(buttonsFolder)
 	  	.forEach(async (subFolder) => {
@@ -117,8 +116,8 @@ export class IsekoClient extends Client<true> {
 	}
 
 	handleCommands(
-		commandsFolder = `${process.cwd()}/${this.baseDir}/commands`
-		?? `${process.cwd()}/Iseko/commands`
+		commandsFolder = `${dirname(fileURLToPath(import.meta.url))}/../../${this.baseDir}/commands`
+        ?? `${dirname(import.meta.url)}/../commands`
 	) {
 		readdirSync(commandsFolder)
 		.forEach(async (subFolder) => {

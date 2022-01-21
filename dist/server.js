@@ -20,12 +20,8 @@ export const serve = (client) => {
         })}\x1b[0m`);
     })).on('connection', socket => {
         n++;
-        client.once('ready', () => {
-            socket.emit('ready', client.user.tag);
-            console.log(`Socket connected: \x1b[1;38;2;0;255;255m'${socket.id}'.\x1b[0m(${n})`);
-            return;
-        });
         socket.on('disconnect', () => {
+            lastDisconnect = Date.now();
             console.log(`Socket Disconnected: \x1b[1;38;2;0;255;255m'${socket.id}'.\x1b[0m(${n})`);
         });
         if (client.isReady()) {
@@ -36,7 +32,10 @@ export const serve = (client) => {
             }
             socket.emit('reconnect', n, socket.handshake.issued - lastDisconnect);
             console.log(`Socket connected: \x1b[1;38;2;0;255;255m'${socket.id}'.\x1b[0m(${n})`);
-            return;
         }
+        client.once('ready', () => {
+            socket.emit('ready', client.user.tag);
+            console.log(`Socket connected: \x1b[1;38;2;0;255;255m'${socket.id}'.\x1b[0m(${n})`);
+        });
     });
 };
